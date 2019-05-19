@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcs.dao.ProductMapper">
+	<select id="selectProCount" parameterType="fenye" resultType="int">
+		select count(pid) FROM products
+	<where>
+		<if test="pname !='' and pname !=null ">
+		and pname like "%"#{pname}"%"
+		</if>
+		<if test="startjiage >0">
+		and jiage &gt;= #{startjiage}
+		</if>
+		<if test="eddjiage >0">
+		and jiage &gt;= #{eddjiage}
+		</if>
+	</where>
+	</select>
+	<select id="selectPro" parameterType="fenye" resultType="product">
+	SELECT * FROM products
+		<where>
+		<if test="pname !='' and pname !=null ">
+		and pname like "%"#{pname}"%"
+		</if>
+		<if test="startjiage >0">
+		and jiage &gt;= #{startjiage}
+		</if>
+		<if test="eddjiage >0">
+		and jiage &gt;= #{eddjiage}
+		</if>
+	</where>
+	limit #{page},#{pageSize}
+	</select>
+</mapper>
